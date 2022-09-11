@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mongo:
+    build: 
+      context: ./mongodb
+    container_name: mongo-container
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    image: 'mongodb'
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb:/data/db
+      - ./mongodb/mongod.conf:/etc/mongod.conf
+
+networks:
+  go-crud-mongo:
+    driver: bridge
+
+volumes:
+  mongodb:
